@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate Plugin Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate agent frontmatter
+        run: |
+          echo "Validating agent files..."
+          for file in agents/*.md; do
+            if [ -f "$file" ]; then
+              echo "Checking $file"
+              head -1 "$file" | grep -q "^---" || { echo "ERROR: $file missing frontmatter"; exit 1; }
+            fi
+          done
+          echo "All agent files valid."
+
+      - name: Validate skill frontmatter
+        run: |
+          echo "Validating skill files..."
+          find skills -name "*.md" | while read file; do
+            echo "Checking $file"
+            head -1 "$file" | grep -q "^---" || { echo "ERROR: $file missing frontmatter"; exit 1; }
+          done
+          echo "All skill files valid."
+
+      - name: Validate command frontmatter
+        run: |
+          echo "Validating command files..."
+          for file in commands/*.md; do
+            if [ -f "$file" ]; then
+              echo "Checking $file"
+              head -1 "$file" | grep -q "^---" || { echo "ERROR: $file missing frontmatter"; exit 1; }
+            fi
+          done
+          echo "All command files valid."
+
+      - name: Check file structure
+        run: |
+          echo "Checking required directories..."
+          for dir in agents skills commands rules contexts; do
+            [ -d "$dir" ] || { echo "WARNING: Missing directory $dir"; }
+          done
+          echo "Structure check complete."

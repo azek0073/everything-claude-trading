@@ -1,0 +1,34 @@
+{
+  "name": "everything-claude-trading",
+  "version": "1.0.0",
+  "description": "The complete trading & quant finance system for Claude Code -- 18 agents, 82 skills, 20 commands",
+  "author": "Brain Bytes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brainbytes-dev/everything-claude-trading.git"
+  },
+  "homepage": "https://github.com/brainbytes-dev/everything-claude-trading",
+  "bugs": {
+    "url": "https://github.com/brainbytes-dev/everything-claude-trading/issues"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "trading",
+    "quant",
+    "quantitative-finance",
+    "algorithmic-trading",
+    "backtesting",
+    "risk-management",
+    "derivatives",
+    "portfolio-optimization",
+    "crypto",
+    "ai-agents"
+  ],
+  "scripts": {
+    "validate": "node scripts/validate-frontmatter.js",
+    "lint": "node scripts/lint-skills.js",
+    "test": "node scripts/validate-frontmatter.js"
+  }
+}
